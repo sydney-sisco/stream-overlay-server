@@ -1,13 +1,31 @@
 require('dotenv').config();
-const server = require("http").createServer();
+const PORT = process.env.PORT || 4000;
+
+function letsencryptOptions(domain) {
+  const path = '/etc/letsencrypt/live/';
+  console.log(path + domain + '/privkey.pem');
+  return {
+    key: fs.readFileSync(path + domain + '/privkey.pem'),
+    cert: fs.readFileSync(path + domain + '/cert.pem'),
+    ca: fs.readFileSync(path + domain + '/chain.pem')
+  };
+}
+
+// https or http based on env
+let server;
+if (process.env.NODE_ENV === 'production') {
+  const options = letsencryptOptions(process.env.HOSTNAME);
+  server = require("https").createServer();
+} else {
+  server = require("http").createServer();
+}
+
 
 const io = require("socket.io")(server, {
   cors: {
     origin: "*",
   },
 });
-
-const PORT = process.env.PORT || 4000;
 
 io.on("connection", socket => {
   console.log("User connected");
