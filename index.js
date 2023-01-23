@@ -1,4 +1,6 @@
 require('dotenv').config();
+var path = require('path');
+var fs = require('fs');
 const PORT = process.env.PORT || 4000;
 
 function letsencryptOptions(domain) {
