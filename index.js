@@ -13,13 +13,18 @@ function letsencryptOptions(domain) {
   };
 }
 
+const requestListener = function (req, res) {
+  res.writeHead(200);
+  res.end('Hello, World!');
+}
+
 // https or http based on env
 let server;
 if (process.env.NODE_ENV === 'production') {
   const options = letsencryptOptions(process.env.HOSTNAME);
-  server = require("https").createServer(options);
+  server = require("https").createServer(options, requestListener);
 } else {
-  server = require("http").createServer();
+  server = require("http").createServer(requestListener);
 }
 
 
