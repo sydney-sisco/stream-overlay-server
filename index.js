@@ -17,7 +17,7 @@ function letsencryptOptions(domain) {
 let server;
 if (process.env.NODE_ENV === 'production') {
   const options = letsencryptOptions(process.env.HOSTNAME);
-  server = require("https").createServer();
+  server = require("https").createServer(options);
 } else {
   server = require("http").createServer();
 }
