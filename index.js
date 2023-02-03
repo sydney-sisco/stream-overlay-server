@@ -43,17 +43,17 @@ io.on("connection", socket => {
   
   socket.on("moveBox", (message) => {
     console.log("moveBox", message);
-    io.emit("moveBox", message);
+    socket.broadcast.emit("moveBox", message);
   });
 
   socket.on("addBox", (message) => {
     console.log("addBox: ", message);
-    io.emit("addBox", message);
+    socket.broadcast.emit("addBox", message);
   });
 
   socket.on("deleteBox", (message) => {
     console.log("deleteBox: ", message);
-    io.emit("deleteBox", message);
+    socket.broadcast.emit("deleteBox", message);
   });
 });
 
