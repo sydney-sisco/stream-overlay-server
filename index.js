@@ -83,7 +83,8 @@ io.on("connection", socket => {
   socket.on("cursor", (message) => {
     console.log("cursor: ", message);
     
-    socket.broadcast.emit("cursor", {...message, id: socket.id, color: socket.color});
+    // socket.broadcast.emit("cursor", {...message, id: socket.id, color: socket.color});
+    io.emit("cursor", {...message, id: socket.id, color: socket.color});
   });
 });
 
