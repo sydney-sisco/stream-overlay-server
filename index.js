@@ -34,6 +34,25 @@ const io = require("socket.io")(server, {
   },
 });
 
+// assign a random color to each socket
+let colorIndex = 0;
+const colors = [
+  '#9400d3',
+  '#4b0082',
+  '#0000ff',
+  '#00ff00',
+  '#ffff00',
+  '#ff7f00',
+  '#ff0000',
+];
+const getNextColor = () => {
+  // const color = colors[colorIndex];
+  colorIndex = (colorIndex + 1) % colors.length;
+  return colorIndex;
+};
+
+
+
 io.on("connection", socket => {
   console.log("User connected");
 
@@ -41,6 +60,7 @@ io.on("connection", socket => {
     console.log("User disconnected");
   });
   
+  socket.color = getNextColor();
   
   // drag and drop
   socket.on("moveBox", (message) => {
@@ -62,7 +82,8 @@ io.on("connection", socket => {
   // cursor share
   socket.on("cursor", (message) => {
     console.log("cursor: ", message);
-    socket.broadcast.emit("cursor", {...message, id: socket.id});
+    
+    socket.broadcast.emit("cursor", {...message, id: socket.id, color: socket.color});
   });
 });
 
