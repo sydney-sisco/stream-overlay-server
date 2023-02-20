@@ -41,6 +41,8 @@ io.on("connection", socket => {
     console.log("User disconnected");
   });
   
+  
+  // drag and drop
   socket.on("moveBox", (message) => {
     console.log("moveBox", message);
     socket.broadcast.emit("moveBox", message);
@@ -54,6 +56,13 @@ io.on("connection", socket => {
   socket.on("deleteBox", (message) => {
     console.log("deleteBox: ", message);
     socket.broadcast.emit("deleteBox", message);
+  });
+
+
+  // cursor share
+  socket.on("cursor", (message) => {
+    console.log("cursor: ", message);
+    socket.broadcast.emit("cursor", message);
   });
 });
 
