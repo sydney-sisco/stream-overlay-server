@@ -62,7 +62,7 @@ io.on("connection", socket => {
   // cursor share
   socket.on("cursor", (message) => {
     console.log("cursor: ", message);
-    socket.broadcast.emit("cursor", message);
+    socket.broadcast.emit("cursor", {...message, id: socket.id});
   });
 });
 
