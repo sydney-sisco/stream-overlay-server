@@ -51,7 +51,9 @@ const getNextColor = () => {
   return colorIndex;
 };
 
-
+require('./twitch.js')((message) => {
+  io.emit("twitch", message);
+});
 
 io.on("connection", socket => {
   console.log("User connected");
