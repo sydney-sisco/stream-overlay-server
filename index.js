@@ -53,6 +53,10 @@ const getNextColor = () => {
 
 require('./twitch.js')((message) => {
   io.emit("twitch", message);
+  io.emit("addBox", {
+    key: '123',
+    timerDuration: '',
+    title: message});
 });
 
 io.on("connection", socket => {
