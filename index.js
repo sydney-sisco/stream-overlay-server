@@ -51,10 +51,10 @@ const getNextColor = () => {
   return colorIndex;
 };
 
-require('./twitch.js')((message) => {
+require('./twitch.js')((id, message) => {
   io.emit("twitch", message);
   io.emit("addBox", {
-    key: '123',
+    key: id,
     timerDuration: '',
     title: message});
 });

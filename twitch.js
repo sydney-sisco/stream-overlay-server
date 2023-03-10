@@ -32,7 +32,7 @@ const twitch = (cb) => {
     if (self) { return; } // Ignore messages from the bot
 
     // call the callback function with the message
-    cb(msg);
+    cb(context.id, `${context['display-name']}: ${msg}`);
     // messages.push(msg.trim());
   }
 
